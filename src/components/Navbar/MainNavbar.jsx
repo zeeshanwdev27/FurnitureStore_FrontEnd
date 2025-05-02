@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import roiserLogo from "../../assets/ROISER.png";
 
 import sort from "../../assets/sort.svg";
@@ -11,48 +11,123 @@ import Topbar from "./Topbar.jsx";
 import Navbar from "./Navbar.jsx";
 import BottomBanner from "./BottomBanner.jsx";
 
-//MaterialUI
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
 function MainNavbar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   return (
     <>
       <Topbar />
       <Navbar />
 
-      <nav className="py-6 px-35 w-full flex justify-between items-center bg-white border border-gray-200">
-        {/* Left side - Brand and Categories */}
-        <div className="flex items-center gap-22">
-          <div className="brand-name flex items-center gap-2">
-            <img
-              className="w-10 h-10 object-contain"
-              src={roiserLogo}
-              alt="roiserlogo"
-            />
+      <nav className="bg-white border border-gray-200 md:px-6 lg:px-35 py-4">
+        {/* Top Row for All Screens */}
+        <div className="flex items-center justify-between px-[25px] lg:hidden">
+
+          {/* Logo */}
+          <div className="flex items-center gap-2">
+            <img src={roiserLogo} alt="roiserlogo" className="w-10 h-10" />
             <p className="text-xl font-bold text-gray-800">ROISER</p>
           </div>
 
-          <div className="dropdown-btn">
-            <PopupState variant="popover" popupId="categories-menu">
+          <div className="flex items-center gap-4">
+            {/* Search Icon */}
+            <button onClick={() => setIsSearchOpen(!isSearchOpen)}>
+              <img src={search} alt="search" className="w-5 h-5" />
+            </button>
+
+            {/* Hamburger Icon */}
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <svg
+                className="w-6 h-6 text-gray-800"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                {isMobileMenuOpen ? (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                ) : (
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                )}
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Expanded Search Input (Mobile Only) */}
+        {isSearchOpen && (
+          <div className="mt-4 lg:hidden">
+            <input
+              type="text"
+              className="w-full pl-4 pr-10 py-2 border border-[#999999] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+              placeholder="Search for products, categories or brands"
+            />
+          </div>
+        )}
+
+        {/* Mobile Menu Content (Toggleable) */}
+        {isMobileMenuOpen && (
+          <div className="mt-4 flex flex-col gap-4 lg:hidden px-10">
+            {/* Categories Button */}
+            <div className="flex flex-col gap-2">
+              <button className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Tables</button>
+              <button className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Sofas</button>
+              <button className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Chairs</button>
+            </div>
+
+
+            {/* Icons */}
+            <ul className="flex items-center gap-6">
+              <li className="flex items-center gap-1 text-gray-600 hover:text-gray-900 cursor-pointer">
+                <img src={cart} alt="cart" className="w-5 h-5" />
+                <div className="text-sm hidden">$0.00</div>
+              </li>
+              <li className="text-gray-600 hover:text-gray-900 cursor-pointer">
+                <img src={heart} alt="heart" className="w-5 h-5" />
+              </li>
+              <li className="text-gray-600 hover:text-gray-900 cursor-pointer">
+                <img src={profile} alt="profile" className="w-5 h-5" />
+              </li>
+            </ul>
+          </div>
+        )}
+
+        {/* Large Screen Layout (Unchanged) */}
+        <div className="hidden lg:flex justify-between items-center mt-4 lg:mt-0">
+          {/* Left - Logo + Categories */}
+          <div className="flex items-center gap-10">
+            <div className="flex items-center gap-2">
+              <img src={roiserLogo} alt="roiserlogo" className="w-10 h-10" />
+              <p className="text-xl font-bold text-gray-800">ROISER</p>
+            </div>
+            <PopupState variant="popover" popupId="categories-menu-lg">
               {(popupState) => (
                 <>
                   <button
                     {...bindTrigger(popupState)}
-                    className="bg-gray-100 border border-gray-100 text-black font-medium rounded-sm px-5 py-1.5 hover:bg-gray-200 flex items-center gap-1 hover:cursor-pointer"
+                    className="bg-gray-100 border text-black font-medium rounded-sm px-4 py-2 flex items-center gap-2 hover:bg-gray-200"
                   >
                     <img src={sort} alt="sort icon" className="w-5 h-5" />
                     Categories
                   </button>
                   <Menu
                     {...bindMenu(popupState)}
-                    MenuListProps={{
-                      className: "w-[170px]",
-                    }}
-                    PaperProps={{
-                      className: "mt-1.5",
-                    }}
+                    MenuListProps={{ className: "w-[170px]" }}
+                    PaperProps={{ className: "mt-1.5" }}
                   >
                     <MenuItem onClick={popupState.close}>Tables</MenuItem>
                     <MenuItem onClick={popupState.close}>Sofas</MenuItem>
@@ -62,24 +137,22 @@ function MainNavbar() {
               )}
             </PopupState>
           </div>
-        </div>
 
-        {/* Center - Search bar */}
-        <div className="ml-3 search-bar flex-1 max-w-2xl relative flex items-center">
-          <input
-            type="text"
-            className="bg-white w-5/6 pl-4 pr-10 py-2 border border-[#999999] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300 focus:bg-white"
-            placeholder="Search for products, categories or brands"
-          />
-          <div className="absolute right-[18.666%] flex items-center pointer-events-none pt-1">
-            <img src={search} alt="search" className="h-4 w-4" />
+          {/* Center - Search Bar */}
+          <div className="flex-1 max-w-2xl relative flex items-center mx-8">
+            <input
+              type="text"
+              className="w-full pl-4 pr-10 py-2 border border-[#999999] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
+              placeholder="Search for products, categories or brands"
+            />
+            <div className="absolute right-3 flex items-center pointer-events-none pt-1">
+              <img src={search} alt="search" className="h-4 w-4" />
+            </div>
           </div>
-        </div>
 
-        {/* Right side - Icons */}
-        <div className="icons">
+          {/* Right - Icons */}
           <ul className="flex items-center gap-6">
-            <li className="text-gray-600 hover:text-gray-900 cursor-pointer gap-1 flex justify-around items-center">
+            <li className="flex items-center gap-1 text-gray-600 hover:text-gray-900 cursor-pointer">
               <img src={cart} alt="cart" className="w-5 h-5" />
               <div className="text-sm">$0.00</div>
             </li>

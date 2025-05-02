@@ -18,33 +18,54 @@ const blogs = [
     }
   ];
 
-function Blogs() {
-  return (
-    <div className="bg-white h-[80vh] py-15 px-30 flex flex-col items-center justify-center">
-
-      <p className="text-2xl font-bold">OUR LATEST NEWS INSIGHT</p>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-15 p-6">
-
-        {blogs.map((data,key)=>(
-        <div key={key} className="blog-card bg-white shadow rounded transition-transform duration-300 hover:shadow-lg hover:scale-105 hover:cursor-pointer">
-          <img src={data.image} alt={data.title} className="w-full h-48 object-cover mb-2" />
-          <div className="flex flex-col p-4 gap-1">
-          <div className="flex items-center gap-4">
-            <div className="flex gap-1 items-center  text-xs text-gray-600"><span class="material-symbols-outlined text-[#885B3A] !text-lg !font-medium">calendar_month</span>March 18, 2025</div>
-            <div className="flex gap-1 items-center text-xs text-gray-600"><span class="material-symbols-outlined text-[#885B3A] !text-lg !font-medium">sell</span>{data.category}</div>
-          </div>
-          <p className="font-bold text-lg flex">{data.title}</p>
-          <div className="border border-gray-300 w-full mt-3 mb-1"></div>
-          <a href="#" className="text-[#885B3A] flex items-center font-medium">Read More<span class="material-symbols-outlined text-[#885B3A]">arrow_right_alt</span></a>
-          </div>
-
+  function Blogs() {
+    return (
+      <div className="bg-white py-10 px-4 md:px-10 lg:px-30 flex flex-col items-center justify-center">
+        <p className="text-xl md:text-2xl font-bold text-center mb-8">OUR LATEST NEWS INSIGHT</p>
+  
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10 lg:gap-15 w-full">
+          {blogs.map((data, key) => (
+            <div
+              key={key}
+              className="blog-card bg-white shadow rounded transition-transform duration-300 hover:shadow-lg hover:scale-105 hover:cursor-pointer"
+            >
+              <img
+                src={data.image}
+                alt={data.title}
+                className="w-full h-48 object-cover mb-2"
+              />
+              <div className="flex flex-col p-4 gap-1">
+                <div className="flex items-center gap-4 text-xs text-gray-600">
+                  <div className="flex gap-1 items-center">
+                    <span className="material-symbols-outlined text-[#885B3A] text-base font-medium">
+                      calendar_month
+                    </span>
+                    March 18, 2025
+                  </div>
+                  <div className="flex gap-1 items-center">
+                    <span className="material-symbols-outlined text-[#885B3A] text-base font-medium">
+                      sell
+                    </span>
+                    {data.category}
+                  </div>
+                </div>
+  
+                <p className="font-bold text-base md:text-lg">{data.title}</p>
+  
+                <div className="border border-gray-300 w-full mt-3 mb-1"></div>
+  
+                <a href="#" className="text-[#885B3A] flex items-center font-medium text-sm">
+                  Read More
+                  <span className="material-symbols-outlined text-[#885B3A] text-base">
+                    arrow_right_alt
+                  </span>
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
-       ))}
-
       </div>
-
-    </div>
-  );
-}
-
-export default Blogs;
+    );
+  }
+  
+  export default Blogs;

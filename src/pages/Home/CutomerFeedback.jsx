@@ -67,8 +67,9 @@ const testimonials = [
 
 function CutomerFeedback() {
   return (
-    <div className="bg-[#885B3A] py-15 px-40 text-center text-white">
-      <h2 className="text-2xl font-bold mb-10">HAPPY CUSTOMERS</h2>
+    <div className="bg-[#885B3A] py-10 px-4 md:px-10 lg:px-40 text-center text-white">
+      <h2 className="text-xl md:text-2xl font-bold mb-8 md:mb-10">HAPPY CUSTOMERS</h2>
+
       <Swiper
         modules={[Navigation, Pagination]}
         spaceBetween={30}
@@ -84,51 +85,51 @@ function CutomerFeedback() {
       >
         {testimonials.map((testi, i) => (
           <SwiperSlide key={i}>
-            <div className="bg-white text-black rounded-lg p-6 shadow-md h-full flex flex-col justify-between">
+            <div className="bg-white text-black rounded-lg p-4 md:p-6 shadow-md h-full flex flex-col justify-between">
               <div className="flex justify-between items-center mb-2">
-                <p className="font-bold">Product Quality</p>
-                <div className="text-[#885B3A] text-lg mr-5">★ ★ ★ ★ ★</div>
+                <p className="font-semibold text-sm md:text-base">Product Quality</p>
+                <div className="text-[#885B3A] text-sm md:text-lg">★ ★ ★ ★ ★</div>
               </div>
-              <p className="text-sm text-left mb-6">“{testi.message}”</p>
+              <p className="text-xs md:text-sm text-left mb-4 md:mb-6">“{testi.message}”</p>
               <div className="flex items-center gap-3 mt-auto">
                 <img
                   src={testi.image}
                   alt={testi.name}
-                  className="w-10 h-10 rounded-full"
+                  className="w-8 h-8 md:w-10 md:h-10 rounded-full"
                 />
                 <div className="text-left">
-                  <p className="text-sm font-semibold">{testi.name}</p>
-                  <p className="text-xs">{testi.role}</p>
+                  <p className="text-xs md:text-sm font-semibold">{testi.name}</p>
+                  <p className="text-[10px] md:text-xs">{testi.role}</p>
                 </div>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
-      {/* Custom styling for Swiper arrows and bullets */}
+
       <style>
         {`
-    .swiper-button-prev,
-    .swiper-button-next {
-      color: black !important;
-    }
+          .swiper-button-prev,
+          .swiper-button-next {
+            color: black !important;
+          }
 
-    .swiper-pagination-bullet {
-      background-color: white !important;
-      opacity: 0.7;
-    }
+          .swiper-pagination-bullet {
+            background-color: white !important;
+            opacity: 0.7;
+          }
 
-    .swiper-pagination-bullet-active {
-      background-color: black !important;
-      opacity: 1;
-    }
+          .swiper-pagination-bullet-active {
+            background-color: black !important;
+            opacity: 1;
+          }
 
-    .swiper-pagination {
-      margin-top: 50px;
-      position: relative;
-      bottom: -10px;
-    }
-  `}
+          .swiper-pagination {
+            margin-top: 40px;
+            position: relative;
+            bottom: -10px;
+          }
+        `}
       </style>
     </div>
   );

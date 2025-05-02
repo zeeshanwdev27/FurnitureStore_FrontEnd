@@ -11,11 +11,11 @@ function FeatureList() {
   }, []);
 
   return (
-    <div className="h-80vh bg-gray-100 px-35 py-15">
+    <div className="h-80vh bg-gray-100 lg:px-35 py-15">
 
-      <div className="flex flex-col justify-center items-center gap-5">
-        <p className="text-3xl font-bold">FEATURED ITEMS</p>
-        <ul className="flex justify-center items-center gap-5 font-medium">
+      <div className="flex flex-col justify-center items-center gap-5 lg:px-0 px-6">
+        <p className="lg:text-3xl text-2xl font-bold">FEATURED ITEMS</p>
+        <ul className="flex justify-center items-center gap-5 font-medium px-4 lg:px-0">
           <li className="hover:cursor-pointer hover:text-[#885B3A]">HOT ITEMS</li>
           <li className="hover:cursor-pointer hover:text-[#885B3A]">BEST SELLERS</li>
           <li className="hover:cursor-pointer hover:text-[#885B3A]">ON SALE</li>
@@ -30,10 +30,10 @@ function FeatureList() {
             <img
               src={product.image?.url}
               alt={product.name}
-              className="w-full h-48 object-cover mb-2"
+              className="w-full h-48 object-cover mb-2 sm:h-36 md:h-48 lg:h-48"
             />
             <p className="text-sm text-gray-500">{product.category}</p>
-            <p className="font-bold text-lg">{product.name}</p>
+            <p className="font-bold lg:text-lg sm:text-sm md:text-sm">{product.name}</p>
             <div className="text-[#885B3A]">★ ★ ★ ★ ☆</div>
             <p className="text-black font-semibold">${product.price}</p>
           </div>
