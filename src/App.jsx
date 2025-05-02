@@ -12,7 +12,6 @@ import Footer from "./components/Footer/Footer.jsx"
 function App() {
   return (
     <>
-    <div>
     <MainNavbar/>
     <HeroSection/>
     <SpecialOffers/>
@@ -22,7 +21,6 @@ function App() {
     <CutomerFeedback/>
     <Blogs/>
     <Footer/>
-    </div>
     </>
   );
 }
