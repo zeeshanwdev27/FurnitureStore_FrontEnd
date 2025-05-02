@@ -12,8 +12,8 @@ function PopularProducts() {
 
   return (
     <div className="h-auto lg:h-[82vh] px-4 md:px-10 lg:px-[120px] py-10">
-      <div className="flex flex-col bg-gray-100 px-4 md:px-8 lg:px-10 py-8 gap-4 rounded-md">
-        <p className="text-lg md:text-xl font-bold">SHOP POPULAR</p>
+      <div className="flex flex-col bg-gray-100 px-4 md:px-8 lg:px-10 py-8 gap-6 rounded-md items-center">
+        <p className="lg:text-3xl text-2xl font-bold">SHOP POPULAR</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product) => (

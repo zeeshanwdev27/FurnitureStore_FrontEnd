@@ -22,7 +22,7 @@ function MainNavbar() {
   return (
     <>
       <Topbar />
-      <Navbar />
+      {/* <Navbar /> */}
 
       <nav className="bg-white border border-gray-200 md:px-6 lg:px-35 py-4">
         {/* Top Row for All Screens */}

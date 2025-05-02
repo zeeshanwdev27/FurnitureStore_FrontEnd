@@ -10,7 +10,7 @@ function BottomBanner() {
             <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>SHOP</li>
             <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>BLOG</li>
             <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>PAGES</li>
-            <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>CATEGORY</li>
+            {/* <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>CATEGORY</li> */}
             <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>CONTACT</li>
           </ul>
         </div>

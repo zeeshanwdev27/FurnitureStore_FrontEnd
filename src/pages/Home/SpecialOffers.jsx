@@ -4,8 +4,8 @@ function SpecialOffers() {
   return (
     <div className="h-50vh flex flex-col md:flex-row justify-center items-center py-15 px-6 md:px-35 gap-6">
      
-      <div className="w-full md:w-1/2 px-10 py-5 bg-gray-100 gap-15 flex flex-col rounded-md">
-        <div className="flex flex-col gap-3">
+      <div className="w-full md:w-1/2 px-10 py-5 bg-gray-100 gap-15 flex flex-col rounded-md items-center lg:items-baseline">
+        <div className="flex flex-col gap-3 items-center lg:items-baseline">
             <p className="text-[#885B3A] font-medium">UNIQUE OFFICE TABLE</p>
             <p className="text-3xl font-bold">30% Flat Sale</p>
             <p className="text-gray-600">Online Promo Code: <a href="#" className="font-bold text-md text-[#885B3A]">70HOT</a></p>
@@ -20,8 +20,8 @@ function SpecialOffers() {
         </div>
       </div>
 
-      <div className="w-full md:w-1/2 px-10 py-5 bg-gray-100 gap-15 flex flex-col rounded-md">
-        <div className="flex flex-col gap-3">
+      <div className="w-full md:w-1/2 px-10 py-5 bg-gray-100 gap-15 flex flex-col rounded-md items-center lg:items-baseline">
+        <div className="flex flex-col gap-3 items-center lg:items-baseline">
             <p className="text-[#885B3A] font-medium">ELEGANT COMFORT CHAIR</p>
             <p className="text-3xl font-bold">10% Flat Sale</p>
             <p className="text-black">Save 20% upto $2500 order</p>

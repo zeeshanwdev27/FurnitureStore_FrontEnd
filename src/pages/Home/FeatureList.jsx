@@ -15,7 +15,7 @@ function FeatureList() {
 
       <div className="flex flex-col justify-center items-center gap-5 lg:px-0 px-6">
         <p className="lg:text-3xl text-2xl font-bold">FEATURED ITEMS</p>
-        <ul className="flex justify-center items-center gap-5 font-medium px-4 lg:px-0">
+        <ul className="flex justify-center items-center gap-5 font-medium px-4 lg:px-0 lg:text-md text-sm">
           <li className="hover:cursor-pointer hover:text-[#885B3A]">HOT ITEMS</li>
           <li className="hover:cursor-pointer hover:text-[#885B3A]">BEST SELLERS</li>
           <li className="hover:cursor-pointer hover:text-[#885B3A]">ON SALE</li>
