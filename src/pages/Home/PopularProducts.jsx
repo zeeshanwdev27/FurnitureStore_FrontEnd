@@ -1,0 +1,44 @@
+import React, { useEffect, useState } from "react";
+
+function PopularProducts() {
+
+  const [products, setProduct] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/products")
+      .then((res) => res.json())
+      .then((data) => setProduct(data.slice(0, 4)))
+      .catch((err) => console.error("Error Fetching Products", err));
+  }, []);
+
+  return (
+    <div className="h-[82vh] px-30 py-10">
+      <div className="flex flex-col bg-gray-100 px-10 py-10 gap-4 rounded-md">
+        <p className="text-xl font-bold">SHOP POPULAR</p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+          {products.map((product) => (
+            <div
+              key={product._id}
+              className="bg-white p-4 shadow rounded transition-transform duration-300 hover:shadow-lg hover:scale-105 hover:cursor-pointer"
+            >
+              <img
+                src={product.image?.url}
+                alt={product.name}
+                className="w-full h-48 object-cover mb-2"
+              />
+              <p className="text-sm text-gray-500">{product.category}</p>
+              <p className="font-bold text-lg">{product.name}</p>
+              <div className="text-[#885B3A]">★ ★ ★ ★ ☆</div>
+              <p className="text-black font-semibold">${product.price}</p>
+            </div>
+          ))}
+          </div>
+
+      </div>
+    </div>
+  );
+}
+
+export default PopularProducts;
