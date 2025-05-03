@@ -70,7 +70,7 @@ function MainNavbar() {
 
         {/* Expanded Search Input (Mobile Only) */}
         {isSearchOpen && (
-          <div className="mt-4 lg:hidden">
+          <div className="mt-4 lg:hidden px-10">
             <input
               type="text"
               className="w-full pl-4 pr-10 py-2 border border-[#999999] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
