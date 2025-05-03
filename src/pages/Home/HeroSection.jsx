@@ -1,7 +1,15 @@
 import React from "react";
 import Button from "@mui/material/Button";
+import AllProducts from "../Product/AllProducts";
+import { useNavigate } from "react-router-dom";
 
 function HeroSection() {
+  const navigate = useNavigate();
+
+  const handleExploreClick = () => {
+    navigate("/all-products");
+  };
+
   return (
     <div
       className="w-full px-10 lg:px-35 sm:h-[60vh] h-[40vh] flex items-center gap-20"
@@ -20,7 +28,7 @@ function HeroSection() {
         </div>
 
         <div>
-        <Button
+        <Button onClick={handleExploreClick}
   variant="outlined"
   className="!p-2 !text-xs !border-white hover:!border-white !text-black !bg-white hover:!bg-gray-50 
              lg:!text-white lg:!bg-transparent lg:hover:!text-black lg:!px-4 lg:!py-2 lg:!text-base"

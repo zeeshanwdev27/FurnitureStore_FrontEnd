@@ -15,9 +15,17 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
+import { useNavigate } from "react-router-dom";
+
 function MainNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+    const navigate = useNavigate();
+
+    const handleHomeClick = () => {
+      navigate("/");
+    };
 
   return (
     <>
@@ -30,8 +38,8 @@ function MainNavbar() {
 
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <img src={roiserLogo} alt="roiserlogo" className="w-10 h-10" />
-            <p className="text-xl font-bold text-gray-800">ROISER</p>
+            <img src={roiserLogo} alt="roiserlogo" className="w-10 h-10 hover:cursor-pointer" onClick={handleHomeClick} />
+            <p className="text-xl font-bold text-gray-800 hover:cursor-pointer" onClick={handleHomeClick}>ROISER</p>
           </div>
 
           <div className="flex items-center gap-4">
@@ -111,8 +119,8 @@ function MainNavbar() {
           {/* Left - Logo + Categories */}
           <div className="flex items-center gap-10">
             <div className="flex items-center gap-2">
-              <img src={roiserLogo} alt="roiserlogo" className="w-10 h-10" />
-              <p className="text-xl font-bold text-gray-800">ROISER</p>
+              <img src={roiserLogo} alt="roiserlogo" className="w-10 h-10 hover:cursor-pointer" onClick={handleHomeClick} />
+              <p className="text-xl font-bold text-gray-800 hover:cursor-pointer" onClick={handleHomeClick}>ROISER</p>
             </div>
             <PopupState variant="popover" popupId="categories-menu-lg">
               {(popupState) => (

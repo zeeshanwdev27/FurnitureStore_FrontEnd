@@ -1,12 +1,18 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function BottomBanner() {
+  const navigate = useNavigate()
+
+  const handleHomeRoute =()=>{
+    navigate('/')
+  }
   return (
     <div className='lg:flex justify-between items-center py-3 lg:px-35'>
 
         <div className='flex justify-center items-center text-xs lg:mb-0 mb-4'>
           <ul className='flex items-center gap-6'>
-            <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>HOME</li>
+            <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]' onClick={handleHomeRoute}>HOME</li>
             <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>SHOP</li>
             <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>BLOG</li>
             <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>PAGES</li>
