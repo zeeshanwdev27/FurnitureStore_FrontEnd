@@ -134,7 +134,7 @@ function MainNavbar() {
                 <>
                   <button
                     {...bindTrigger(popupState)}
-                    className="bg-gray-100 border text-black font-medium rounded-sm px-4 py-2 flex items-center gap-2 hover:bg-gray-200"
+                    className="bg-gray-100 border text-black font-medium rounded-sm px-4 py-2 flex items-center gap-2 hover:bg-gray-200 hover:cursor-pointer"
                   >
                     <img src={sort} alt="sort icon" className="w-5 h-5" />
                     Categories
