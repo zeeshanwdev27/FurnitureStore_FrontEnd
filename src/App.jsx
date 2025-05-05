@@ -16,6 +16,8 @@ import ProductDetail from "./pages/Product/ProductDetail.jsx";
 
 import ScrollToTop from "./components/Scroll/ScrollToTop.jsx";    //use because when i navigate, screen is still on point where i was before
 
+import { CartProvider } from "./context/CartContext.jsx";
+
 function HomePage() {
   return (
     <>
@@ -34,12 +36,14 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <CartProvider>
       <Routes>
         <Route path="/" element={<Layout><HomePage /></Layout>} />
         <Route path="/api/all-products" element={<Layout><AllProducts /></Layout>} />
         <Route path="/api/category/:categoryName" element={<Layout><CategoryProducts /></Layout>} />
         <Route path="/api/product/:id" element={<Layout><ProductDetail /></Layout>} />
       </Routes>
+      </CartProvider>
     </Router>
   );
 }

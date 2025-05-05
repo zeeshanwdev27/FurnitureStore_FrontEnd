@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useCart } from "../../context/CartContext"
 
 function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [suggested, setSuggested] = useState([]);
+  const { addToCart } = useCart();
 
   // use Navigate
   const navigate = useNavigate();
@@ -26,7 +28,8 @@ function ProductDetail() {
 
   const handleAddToCart = () => {
     // Add your add-to-cart logic here
-    alert(`Added "${product.name}" to cart!`);
+    // alert(`Added "${product.name}" to cart!`);
+    addToCart(product);
   };
 
   if (!product) return <div className="p-10">Loading...</div>;

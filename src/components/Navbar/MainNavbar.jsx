@@ -16,9 +16,12 @@ import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
 
 import { useNavigate } from "react-router-dom";
 
+import { useCart } from "../../context/CartContext.jsx"
+
 function MainNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { toggleCart } = useCart();
 
     const navigate = useNavigate();
 
@@ -105,8 +108,8 @@ function MainNavbar() {
             {/* Icons */}
             <ul className="flex items-center gap-6">
               <li className="flex items-center gap-1 text-gray-600 hover:text-gray-900 cursor-pointer">
-                <img src={cart} alt="cart" className="w-5 h-5" />
-                <div className="text-sm hidden">$0.00</div>
+                <img src={cart} onClick={toggleCart} alt="cart" className="w-5 h-5" />
+                {/* <div className="text-sm hidden">$0.00</div> */}
               </li>
               <li className="text-gray-600 hover:text-gray-900 cursor-pointer">
                 <img src={heart} alt="heart" className="w-5 h-5" />
@@ -179,9 +182,9 @@ function MainNavbar() {
 
           {/* Right - Icons */}
           <ul className="flex items-center gap-6">
-            <li className="flex items-center gap-1 text-gray-600 hover:text-gray-900 cursor-pointer">
+            <li onClick={toggleCart} className="flex items-center gap-1 text-gray-600 hover:text-gray-900 cursor-pointer">
               <img src={cart} alt="cart" className="w-5 h-5" />
-              <div className="text-sm">$0.00</div>
+              {/* <div className="text-sm">$0.00</div> */}
             </li>
             <li className="text-gray-600 hover:text-gray-900 cursor-pointer">
               <img src={heart} alt="heart" className="w-5 h-5" />
