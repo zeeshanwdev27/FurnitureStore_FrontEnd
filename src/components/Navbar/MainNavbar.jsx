@@ -8,7 +8,6 @@ import cart from "../../assets/cart.svg";
 import search from "../../assets/search.svg";
 
 import Topbar from "./Topbar.jsx";
-import Navbar from "./Navbar.jsx";
 import BottomBanner from "./BottomBanner.jsx";
 
 import Menu from "@mui/material/Menu";
@@ -25,6 +24,11 @@ function MainNavbar() {
 
     const handleHomeClick = () => {
       navigate("/");
+    };
+
+    const handleCategoryClick = (category) => {
+      navigate(`/api/category/${category}`);
+      setIsMobileMenuOpen(false); 
     };
 
   return (
@@ -92,9 +96,9 @@ function MainNavbar() {
           <div className="mt-4 flex flex-col gap-4 lg:hidden px-10">
             {/* Categories Button */}
             <div className="flex flex-col gap-2">
-              <button className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Tables</button>
-              <button className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Sofas</button>
-              <button className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Chairs</button>
+              <button onClick={() => handleCategoryClick("Tables")} className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Tables</button>
+              <button onClick={() => handleCategoryClick("Sofas")}  className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Sofas</button>
+              <button onClick={() => handleCategoryClick("Chairs")} className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Chairs</button>
             </div>
 
 
@@ -137,9 +141,24 @@ function MainNavbar() {
                     MenuListProps={{ className: "w-[170px]" }}
                     PaperProps={{ className: "mt-1.5" }}
                   >
-                    <MenuItem onClick={popupState.close}>Tables</MenuItem>
-                    <MenuItem onClick={popupState.close}>Sofas</MenuItem>
-                    <MenuItem onClick={popupState.close}>Chairs</MenuItem>
+                    <MenuItem onClick={()=>{
+                      popupState.close();
+                      navigate("/api/category/Tables");
+                    }}>
+                    Tables
+                    </MenuItem>
+                    <MenuItem onClick={()=>{
+                      popupState.close();
+                      navigate("/api/category/Sofas");
+                    }}>
+                    Sofas
+                    </MenuItem>
+                    <MenuItem onClick={()=>{
+                      popupState.close();
+                      navigate("/api/category/Chairs");
+                    }}>
+                    Chairs
+                    </MenuItem>
                   </Menu>
                 </>
               )}

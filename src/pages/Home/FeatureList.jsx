@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function FeatureList() {
   const [products, setProduct] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch("http://localhost:3000/api/products")
@@ -9,6 +11,10 @@ function FeatureList() {
       .then((data) => setProduct(data.slice(0, 8)))
       .catch((err) => console.error("Error Fetching Products", err));
   }, []);
+
+  const handleProductClick = (id) => {
+    navigate(`/api/product/${id}`);
+  };
 
   return (
     <div className="h-80vh bg-gray-100 lg:px-35 py-15">
@@ -26,7 +32,7 @@ function FeatureList() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
         {products.map((product) => (
 
-          <div key={product._id} className="bg-white p-4 shadow rounded transition-transform duration-300 hover:shadow-lg hover:scale-105 hover:cursor-pointer">
+          <div key={product._id} onClick={()=>handleProductClick(product._id)} className="bg-white p-4 shadow rounded transition-transform duration-300 hover:shadow-lg hover:scale-105 hover:cursor-pointer">
             <img
               src={product.image?.url}
               alt={product.name}

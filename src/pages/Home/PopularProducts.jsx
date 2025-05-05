@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function PopularProducts() {
   const [products, setProduct] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch("http://localhost:3000/api/products")
@@ -9,6 +11,10 @@ function PopularProducts() {
       .then((data) => setProduct(data.slice(0, 4)))
       .catch((err) => console.error("Error Fetching Products", err));
   }, []);
+
+  const handleProductClick = (id) => {
+    navigate(`/api/product/${id}`);
+  };
 
   return (
     <div className="h-auto lg:h-[82vh] px-4 md:px-10 lg:px-[120px] py-10">
@@ -19,6 +25,7 @@ function PopularProducts() {
           {products.map((product) => (
             <div
               key={product._id}
+              onClick={()=>handleProductClick(product._id)}
               className="bg-white p-4 shadow rounded transition-transform duration-300 hover:shadow-lg hover:scale-105 cursor-pointer"
             >
               <img

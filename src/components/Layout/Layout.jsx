@@ -4,12 +4,11 @@ import Footer from '../Footer/Footer.jsx'
 
 function Layout({children}) {
   return (
-    <>
-    <MainNavbar/>
-    <main>{children}</main>
-    <Footer/>
-      
-    </>
+    <div className="flex flex-col min-h-screen">
+      <MainNavbar />
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </div>
   )
 }
 

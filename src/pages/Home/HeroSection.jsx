@@ -7,7 +7,7 @@ function HeroSection() {
   const navigate = useNavigate();
 
   const handleExploreClick = () => {
-    navigate("/all-products");
+    navigate("/api/all-products");
   };
 
   return (
@@ -31,7 +31,7 @@ function HeroSection() {
         <Button onClick={handleExploreClick}
   variant="outlined"
   className="!p-2 !text-xs !border-white hover:!border-white !text-black !bg-white hover:!bg-gray-50 
-             lg:!text-white lg:!bg-transparent lg:hover:!text-black lg:!px-4 lg:!py-2 lg:!text-base"
+             lg:!text-white lg:!bg-transparent lg:hover:!text-black lg:!px-4 lg:!py-2 lg:!text-sm"
 >
   EXPLORE All ITEMS
 </Button>
