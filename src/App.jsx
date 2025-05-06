@@ -18,6 +18,8 @@ import ScrollToTop from "./components/Scroll/ScrollToTop.jsx";        //use beca
 
 import { CartProvider } from "./context/CartContext.jsx";             //react context for Global State Management
 
+import SearchResults from "./pages/SearchResult/SearchResults.jsx"
+
 function HomePage() {
   return (
     <>
@@ -42,6 +44,7 @@ function App() {
         <Route path="/api/all-products" element={<Layout><AllProducts /></Layout>} />
         <Route path="/api/category/:categoryName" element={<Layout><CategoryProducts /></Layout>} />
         <Route path="/api/product/:id" element={<Layout><ProductDetail /></Layout>} />
+        <Route path="/api/search" element={<Layout><SearchResults /></Layout>} />
       </Routes>
       </CartProvider>
     </Router>

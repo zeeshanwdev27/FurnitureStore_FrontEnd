@@ -22,6 +22,7 @@ function MainNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { toggleCart } = useCart();
+  const [searchTerm, setSearchTerm] = useState("");
 
     const navigate = useNavigate();
 
@@ -88,6 +89,14 @@ function MainNavbar() {
           <div className="mt-4 lg:hidden px-10">
             <input
               type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  navigate(`/api/search?q=${searchTerm}`);
+                  setSearchTerm("");
+                }
+              }}
               className="w-full pl-4 pr-10 py-2 border border-[#999999] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
               placeholder="Search for products, categories or brands"
             />
@@ -123,12 +132,14 @@ function MainNavbar() {
 
         {/* Large Screen Layout (Unchanged) */}
         <div className="hidden lg:flex justify-between items-center mt-4 lg:mt-0">
-          {/* Left - Logo + Categories */}
+          
+          {/* Logo & Category */}
           <div className="flex items-center gap-10">
             <div className="flex items-center gap-2">
               <img src={roiserLogo} alt="roiserlogo" className="w-10 h-10 hover:cursor-pointer" onClick={handleHomeClick} />
               <p className="text-xl font-bold text-gray-800 hover:cursor-pointer" onClick={handleHomeClick}>ROISER</p>
             </div>
+            {/* Categories */}
             <PopupState variant="popover" popupId="categories-menu-lg">
               {(popupState) => (
                 <>
@@ -172,10 +183,24 @@ function MainNavbar() {
           <div className="flex-1 max-w-2xl relative flex items-center mx-8">
             <input
               type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  navigate(`/api/search?q=${searchTerm}`);
+                  setSearchTerm("");
+                }
+              }}
               className="w-full pl-4 pr-10 py-2 border border-[#999999] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
               placeholder="Search for products, categories or brands"
             />
-            <div className="absolute right-3 flex items-center pointer-events-none pt-1">
+            <div className="absolute right-3 flex items-center pointer-events-none pt-1"
+              onClick={() => {
+                if (searchTerm.trim()) {
+                  navigate(`/api/search?q=${searchTerm}`);
+                  setSearchTerm("");
+                }
+              }}>
               <img src={search} alt="search" className="h-4 w-4" />
             </div>
           </div>
