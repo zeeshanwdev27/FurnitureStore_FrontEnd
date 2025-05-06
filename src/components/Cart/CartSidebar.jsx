@@ -12,6 +12,10 @@ export default function CartSidebar() {
     total = subtotal + shipping,
   } = useCart();
 
+  const handleCheckout = ()=>{
+    alert("Order is Submitted, Continue Shopping :)")
+  }
+
   return (
     <div
       className={`fixed top-0 right-0 w-full max-w-sm bg-white shadow-lg transition-transform duration-300 z-50 flex flex-col
@@ -65,7 +69,7 @@ export default function CartSidebar() {
             <span>Total</span>
             <span>${total.toFixed(2)}</span>
           </div>
-          <button className="w-full mt-4 bg-black text-white py-2 rounded hover:bg-[#885B3A] hover:cursor-pointer">
+          <button onClick={handleCheckout} className="w-full mt-4 bg-black text-white py-2 rounded hover:bg-[#885B3A] hover:cursor-pointer">
             Checkout
           </button>
         </div>

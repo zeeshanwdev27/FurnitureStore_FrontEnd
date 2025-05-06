@@ -14,9 +14,9 @@ import AllProducts from "./pages/Product/AllProducts.jsx";
 import CategoryProducts from "./pages/Product/CategoryProducts.jsx";
 import ProductDetail from "./pages/Product/ProductDetail.jsx";
 
-import ScrollToTop from "./components/Scroll/ScrollToTop.jsx";    //use because when i navigate, screen is still on point where i was before
+import ScrollToTop from "./components/Scroll/ScrollToTop.jsx";        //use because when i navigate, screen is still on point where i was before
 
-import { CartProvider } from "./context/CartContext.jsx";
+import { CartProvider } from "./context/CartContext.jsx";             //react context for Global State Management
 
 function HomePage() {
   return (
