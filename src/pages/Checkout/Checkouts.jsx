@@ -18,6 +18,8 @@ function Checkouts() {
   const [discount, setDiscount] = useState(0);
   const [isPromoApplied, setIsPromoApplied] = useState(false);
 
+
+
   const applyPromoCode = () => {
     if (promoCode.toLowerCase() === "summer10" && !isPromoApplied) {
       setDiscount(10);

@@ -22,6 +22,9 @@ import SignIn from "./pages/Account/Sign-in/SignIn.jsx"
 import SignUp from "./pages/Account/Sign-up/SignUp.jsx"
 import Checkouts from "./pages/Checkout/Checkouts.jsx"
 
+import ProtectedRoute from "./components/Protected/ProtectedRoute.jsx";
+import Logout from "./pages/Account/Log-out/LogOut.jsx";
+
 function HomePage() {
   return (
     <>
@@ -49,7 +52,8 @@ function App() {
         <Route path="/api/search" element={<Layout><SearchResults /></Layout>} />
         <Route path="/api/signin" element={<SignIn />} />
         <Route path="/api/signup" element={<SignUp />} />
-        <Route path="/api/checkout" element={<Checkouts />} />
+        <Route path="/api/logout" element={<Logout />} />
+        <Route path="/api/checkout" element={<ProtectedRoute><Checkouts /></ProtectedRoute>} />
       </Routes>
       </CartProvider>
     </Router>

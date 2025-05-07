@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import loginImg from "../../../assets/loginImg.png";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 function SignIn() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -47,8 +48,9 @@ function SignIn() {
       // Store user data/token (adjust based on your auth system)
       localStorage.setItem('user', JSON.stringify(data.user));
       
-      // Redirect to home or dashboard
-      navigate('/');
+    // Redirect to the page they were trying to access or home
+    const from = location.state?.from?.pathname || '/';
+    navigate(from, { replace: true });
 
     } catch (err) {
       setError(err.message);

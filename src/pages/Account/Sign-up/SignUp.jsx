@@ -29,7 +29,7 @@ function SignUp() {
     e.preventDefault();
     setIsLoading(true);
     setError("");
-
+  
     try {
       const response = await fetch('http://localhost:3000/api/signup', {
         method: 'POST',
@@ -38,14 +38,21 @@ function SignUp() {
         },
         body: JSON.stringify(formData),
       });
-
+  
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || 'Signup failed');
+        throw new Error(errorData.error || 'Signup failed');
       }
-
-      // Handle successful signup (e.g., redirect to HomePage)
+  
+      const data = await response.json();
+      
+      // Store both user data AND token
+      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('token', data.token);
+      
+      // Redirect to home
       navigate('/');
+      
     } catch (err) {
       setError(err.message);
     } finally {
