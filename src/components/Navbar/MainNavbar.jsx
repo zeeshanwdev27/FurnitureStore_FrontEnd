@@ -1,90 +1,120 @@
 import React, { useState } from "react";
 import roiserLogo from "../../assets/ROISER.png";
-
 import sort from "../../assets/sort.svg";
 import profile from "../../assets/profile.svg";
 import heart from "../../assets/heart.svg";
 import cart from "../../assets/cart.svg";
 import search from "../../assets/search.svg";
-
 import Topbar from "./Topbar.jsx";
 import BottomBanner from "./BottomBanner.jsx";
-
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import PopupState, { bindTrigger, bindMenu } from "material-ui-popup-state";
-
 import { useNavigate } from "react-router-dom";
-
-import { useCart } from "../../context/CartContext.jsx"
+import { useCart } from "../../context/CartContext.jsx";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function MainNavbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { toggleCart } = useCart();
   const [searchTerm, setSearchTerm] = useState("");
+  const [profileAnchorEl, setProfileAnchorEl] = useState(null);
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  // Enhanced authentication check
+  const isAuthenticated = () => {
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
+    return !!token && !!user;
+  };
 
-    const handleHomeClick = () => {
-      navigate("/");
-    };
+  const user = isAuthenticated() ? JSON.parse(localStorage.getItem('user')) : null;
 
-    const handleCategoryClick = (category) => {
-      navigate(`/api/category/${category}`);
-      setIsMobileMenuOpen(false); 
-    };
+  const handleHomeClick = () => {
+    navigate("/");
+  };
+
+  const handleCategoryClick = (category) => {
+    navigate(`/api/category/${category}`);
+    setIsMobileMenuOpen(false); 
+  };
+
+  const handleProfileClick = (event) => {
+    if (isAuthenticated()) {
+      setProfileAnchorEl(event.currentTarget);
+    } else {
+      navigate('/api/signin', {
+        state: { from: { pathname: window.location.pathname } }
+      });
+    }
+  };
+
+  const handleCloseProfileMenu = () => {
+    setProfileAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      setProfileAnchorEl(null);
+      navigate('/');
+      toast.success('Successfully logged out!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+      toast.error('Failed to logout. Please try again.');
+    }
+  };
 
   return (
     <>
       <Topbar />
-      {/* <Navbar /> */}
-
       <nav className="bg-white border border-gray-200 md:px-6 lg:px-35 py-4">
-        {/* Top Row for All Screens */}
+        {/* Mobile View */}
         <div className="flex items-center justify-between px-[25px] lg:hidden">
-
-          {/* Logo */}
           <div className="flex items-center gap-2">
             <img src={roiserLogo} alt="roiserlogo" className="w-10 h-10 hover:cursor-pointer" onClick={handleHomeClick} />
             <p className="text-xl font-bold text-gray-800 hover:cursor-pointer" onClick={handleHomeClick}>ROISER</p>
           </div>
 
           <div className="flex items-center gap-4">
-            {/* Search Icon */}
+            <div className="flex items-center gap-4">
+              <img src={cart} onClick={toggleCart} alt="cart" className="w-5 h-5 hover:cursor-pointer" />
+              <img src={heart} alt="heart" className="w-5 h-5 hover:cursor-pointer" />
+              <img 
+                src={profile} 
+                alt="profile" 
+                className="w-5 h-5 hover:cursor-pointer" 
+                onClick={handleProfileClick}
+              />
+            </div>
+
             <button onClick={() => setIsSearchOpen(!isSearchOpen)}>
               <img src={search} alt="search" className="w-5 h-5" />
             </button>
 
-            {/* Hamburger Icon */}
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              <svg
-                className="w-6 h-6 text-gray-800"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
+              <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 {isMobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                 )}
               </svg>
             </button>
           </div>
         </div>
 
-        {/* Expanded Search Input (Mobile Only) */}
         {isSearchOpen && (
           <div className="mt-4 lg:hidden px-10">
             <input
@@ -103,43 +133,24 @@ function MainNavbar() {
           </div>
         )}
 
-        {/* Mobile Menu Content (Toggleable) */}
         {isMobileMenuOpen && (
           <div className="mt-4 flex flex-col gap-4 lg:hidden px-10">
-            {/* Categories Button */}
             <div className="flex flex-col gap-2">
               <button onClick={() => handleCategoryClick("Tables")} className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Tables</button>
-              <button onClick={() => handleCategoryClick("Sofas")}  className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Sofas</button>
+              <button onClick={() => handleCategoryClick("Sofas")} className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Sofas</button>
               <button onClick={() => handleCategoryClick("Chairs")} className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md">Chairs</button>
             </div>
-
-
-            {/* Icons */}
-            <ul className="flex items-center gap-6">
-              <li className="flex items-center gap-1 text-gray-600 hover:text-gray-900 cursor-pointer">
-                <img src={cart} onClick={toggleCart} alt="cart" className="w-5 h-5" />
-                {/* <div className="text-sm hidden">$0.00</div> */}
-              </li>
-              <li className="text-gray-600 hover:text-gray-900 cursor-pointer">
-                <img src={heart} alt="heart" className="w-5 h-5" />
-              </li>
-              <li className="text-gray-600 hover:text-gray-900 cursor-pointer">
-                <img src={profile} alt="profile" className="w-5 h-5" />
-              </li>
-            </ul>
           </div>
         )}
 
-        {/* Large Screen Layout (Unchanged) */}
+        {/* Desktop View */}
         <div className="hidden lg:flex justify-between items-center mt-4 lg:mt-0">
-          
-          {/* Logo & Category */}
           <div className="flex items-center gap-10">
             <div className="flex items-center gap-2">
               <img src={roiserLogo} alt="roiserlogo" className="w-10 h-10 hover:cursor-pointer" onClick={handleHomeClick} />
               <p className="text-xl font-bold text-gray-800 hover:cursor-pointer" onClick={handleHomeClick}>ROISER</p>
             </div>
-            {/* Categories */}
+            
             <PopupState variant="popover" popupId="categories-menu-lg">
               {(popupState) => (
                 <>
@@ -150,28 +161,15 @@ function MainNavbar() {
                     <img src={sort} alt="sort icon" className="w-5 h-5" />
                     Categories
                   </button>
-                  <Menu
-                    {...bindMenu(popupState)}
-                    MenuListProps={{ className: "w-[170px]" }}
-                    PaperProps={{ className: "mt-1.5" }}
-                  >
-                    <MenuItem onClick={()=>{
-                      popupState.close();
-                      navigate("/api/category/Tables");
-                    }}>
-                    Tables
+                  <Menu {...bindMenu(popupState)}>
+                    <MenuItem onClick={() => { popupState.close(); navigate("/api/category/Tables"); }}>
+                      Tables
                     </MenuItem>
-                    <MenuItem onClick={()=>{
-                      popupState.close();
-                      navigate("/api/category/Sofas");
-                    }}>
-                    Sofas
+                    <MenuItem onClick={() => { popupState.close(); navigate("/api/category/Sofas"); }}>
+                      Sofas
                     </MenuItem>
-                    <MenuItem onClick={()=>{
-                      popupState.close();
-                      navigate("/api/category/Chairs");
-                    }}>
-                    Chairs
+                    <MenuItem onClick={() => { popupState.close(); navigate("/api/category/Chairs"); }}>
+                      Chairs
                     </MenuItem>
                   </Menu>
                 </>
@@ -179,7 +177,6 @@ function MainNavbar() {
             </PopupState>
           </div>
 
-          {/* Center - Search Bar */}
           <div className="flex-1 max-w-2xl relative flex items-center mx-8">
             <input
               type="text"
@@ -205,23 +202,54 @@ function MainNavbar() {
             </div>
           </div>
 
-          {/* Right - Icons */}
           <ul className="flex items-center gap-6">
             <li onClick={toggleCart} className="flex items-center gap-1 text-gray-600 hover:text-gray-900 cursor-pointer">
               <img src={cart} alt="cart" className="w-5 h-5" />
-              {/* <div className="text-sm">$0.00</div> */}
             </li>
             <li className="text-gray-600 hover:text-gray-900 cursor-pointer">
               <img src={heart} alt="heart" className="w-5 h-5" />
             </li>
             <li className="text-gray-600 hover:text-gray-900 cursor-pointer">
-              <img src={profile} alt="profile" className="w-5 h-5" />
+              <img 
+                src={profile} 
+                alt="profile" 
+                className="w-5 h-5" 
+                onClick={handleProfileClick}
+              />
+              <Menu
+                anchorEl={profileAnchorEl}
+                open={Boolean(profileAnchorEl)}
+                onClose={handleCloseProfileMenu}
+              >
+                {isAuthenticated() && (
+                  <>
+                    <MenuItem disabled>
+                      <span className="font-medium">Hi, {user?.username}</span>
+                    </MenuItem>
+                    <MenuItem onClick={handleLogout}>
+                      Sign Out
+                    </MenuItem>
+                  </>
+                )}
+              </Menu>
             </li>
           </ul>
         </div>
       </nav>
 
       <BottomBanner />
+      
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </>
   );
 }

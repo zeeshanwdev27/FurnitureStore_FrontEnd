@@ -28,7 +28,7 @@ function SignIn() {
     e.preventDefault();
     setIsLoading(true);
     setError('');
-
+  
     try {
       const response = await fetch('http://localhost:3000/api/signin', {
         method: 'POST',
@@ -37,21 +37,22 @@ function SignIn() {
         },
         body: JSON.stringify(formData),
       });
-
+  
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Login failed');
       }
-
+  
       const data = await response.json();
       
-      // Store user data/token (adjust based on your auth system)
+      // Store both user data AND token
       localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('token', data.token); // Add this line
       
-    // Redirect to the page they were trying to access or home
-    const from = location.state?.from?.pathname || '/';
-    navigate(from, { replace: true });
-
+      // Redirect to the page they were trying to access or home
+      const from = location.state?.from?.pathname || '/';
+      navigate(from, { replace: true });
+  
     } catch (err) {
       setError(err.message);
     } finally {

@@ -5,3 +5,4 @@ Depedencies i Install in Fronend:
 4. npm install swiper (For Customer Slider)
 5. npm i react-router-dom
 6. npm i axios
+7. npm i react-toastify
