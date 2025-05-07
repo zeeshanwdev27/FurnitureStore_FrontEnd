@@ -1,5 +1,6 @@
 import React from "react";
 import { useCart } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 export default function CartSidebar() {
   const {
@@ -12,8 +13,10 @@ export default function CartSidebar() {
     total = subtotal + shipping,
   } = useCart();
 
+  const navigate = useNavigate()
+
   const handleCheckout = ()=>{
-    alert("Order is Submitted, Continue Shopping :)")
+    navigate('/api/checkout')
   }
 
   return (
