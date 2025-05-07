@@ -15,10 +15,11 @@ import CategoryProducts from "./pages/Product/CategoryProducts.jsx";
 import ProductDetail from "./pages/Product/ProductDetail.jsx";
 
 import ScrollToTop from "./components/Scroll/ScrollToTop.jsx";        //use because when i navigate, screen is still on point where i was before
-
 import { CartProvider } from "./context/CartContext.jsx";             //react context for Global State Management
-
 import SearchResults from "./pages/SearchResult/SearchResults.jsx"
+
+import SignIn from "./pages/Account/Sign-in/SignIn.jsx"
+import SignUp from "./pages/Account/Sign-up/SignUp.jsx"
 
 function HomePage() {
   return (
@@ -45,6 +46,8 @@ function App() {
         <Route path="/api/category/:categoryName" element={<Layout><CategoryProducts /></Layout>} />
         <Route path="/api/product/:id" element={<Layout><ProductDetail /></Layout>} />
         <Route path="/api/search" element={<Layout><SearchResults /></Layout>} />
+        <Route path="/api/signin" element={<SignIn />} />
+        <Route path="/api/signup" element={<SignUp />} />
       </Routes>
       </CartProvider>
     </Router>

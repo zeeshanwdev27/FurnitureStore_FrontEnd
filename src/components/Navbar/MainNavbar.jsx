@@ -194,7 +194,7 @@ function MainNavbar() {
               className="w-full pl-4 pr-10 py-2 border border-[#999999] rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
               placeholder="Search for products, categories or brands"
             />
-            <div className="absolute right-3 flex items-center pointer-events-none pt-1"
+            <div className="absolute right-3 flex items-center pt-1 hover:cursor-pointer"
               onClick={() => {
                 if (searchTerm.trim()) {
                   navigate(`/api/search?q=${searchTerm}`);
