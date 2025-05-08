@@ -4,33 +4,50 @@ import { useNavigate } from 'react-router-dom'
 function BottomBanner() {
   const navigate = useNavigate()
 
-  const handleHomeRoute =()=>{
-    navigate('/')
-  }
-
-  const handleAllProducts =()=>{
-    navigate('/products')
-  }
+  const handleHomeRoute = () => navigate('/')
+  const handleAllProducts = () => navigate('/products')
 
   return (
-    <div className='lg:flex justify-between items-center py-3 lg:px-35'>
-
-        <div className='flex justify-center items-center text-xs lg:mb-0 mb-4'>
-          <ul className='flex items-center gap-6'>
-            <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]' onClick={handleHomeRoute}>HOME</li>
-            <li onClick={handleAllProducts} className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>SHOP ALL</li>
-            <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>BLOG</li>
-            <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>PAGES</li>
-            {/* <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>CATEGORY</li> */}
-            <li className='text-black font-bold hover:cursor-pointer hover:text-[#885B3A]'>CONTACT</li>
+    <div className='bg-white border-t border-gray-200 py-4 px-4 lg:px-35'>
+      <div className='max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-center gap-4'>
+        {/* Navigation Links */}
+        <nav className='w-full lg:w-auto'>
+          <ul className='flex flex-wrap justify-center items-center gap-4 lg:gap-3'>
+            {[
+              { label: 'HOME', action: handleHomeRoute },
+              { label: 'SHOP ALL', action: handleAllProducts },
+              { label: 'BLOG', action: () => {} },
+              { label: 'PAGES', action: () => {} },
+              { label: 'CONTACT', action: () => {} }
+            ].map((item, index) => (
+              <li 
+                key={index}
+                onClick={item.action}
+                className='text-sm font-semibold text-gray-800 hover:text-[#885B3A] transition-colors duration-200 cursor-pointer px-2 py-1 rounded-md hover:bg-gray-50'
+              >
+                {item.label}
+              </li>
+            ))}
           </ul>
+        </nav>
+
+        {/* Discount Banner */}
+        <div className='w-full lg:w-auto flex justify-center items-center'>
+          <div 
+            className='flex items-center justify-center gap-2 cursor-pointer group'
+            onClick={() => navigate('/products')}
+          >
+            <span className='text-sm font-semibold text-gray-800 group-hover:text-[#885B3A] transition-colors'>
+              Get 30% Discount Now
+            </span>
+            <span className='text-xs font-bold text-white bg-[#885B3A] rounded-full px-3 py-1 transform group-hover:scale-105 transition-transform'>
+              SALE
+            </span>
+          </div>
         </div>
 
-        <div className='flex justify-center items-center'>
-          <ul className='flex items-center justify-center gap-3 font-bold'>
-            <li className='text-black flex items-center justify-center gap-2 text-xs hover:cursor-pointer'>Get 30% Discount Now<div className='text-white text-xs bg-[#885B3A] rounded-2xl lg:px-3 px-2 py-0.5'>SALE</div></li>
-          </ul>
-        </div>
+        
+      </div>
     </div>
   )
 }

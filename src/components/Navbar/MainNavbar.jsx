@@ -290,7 +290,7 @@ function MainNavbar() {
           <div className="flex items-center gap-6">
             <button 
               onClick={toggleCart}
-              className="relative p-1 hover:bg-gray-100 rounded-full transition-colors"
+              className="relative p-1 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
             >
               <img src={cart} alt="cart" className="w-5 h-5" />
               {itemCount > 0 && (
@@ -300,14 +300,14 @@ function MainNavbar() {
               )}
             </button>
             
-            <button className="p-1 hover:bg-gray-100 rounded-full transition-colors">
+            <button className="p-1 hover:bg-gray-100 rounded-full transition-colors cursor-pointer">
               <img src={heart} alt="wishlist" className="w-5 h-5" />
             </button>
             
             <div className="relative">
               <button 
                 onClick={handleProfileClick}
-                className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+                className="p-1 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
               >
                 <img src={profile} alt="profile" className="w-5 h-5" />
               </button>
