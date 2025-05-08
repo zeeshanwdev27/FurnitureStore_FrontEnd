@@ -266,7 +266,7 @@ function MainNavbar() {
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  navigate(`/api/search?q=${searchTerm}`);
+                  navigate(`/search?q=${searchTerm}`);
                   setSearchTerm("");
                 }
               }}
