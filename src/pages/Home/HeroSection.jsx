@@ -7,7 +7,7 @@ function HeroSection() {
   const navigate = useNavigate();
 
   const handleExploreClick = () => {
-    navigate("/api/all-products");
+    navigate("/products");
   };
 
   return (

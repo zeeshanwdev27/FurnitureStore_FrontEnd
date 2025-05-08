@@ -30,7 +30,7 @@ function CategoryProducts() {
   }, [categoryName]);
 
   const handleProductClick = (id) => {
-    navigate(`/api/product/${id}`);
+    navigate(`/product/${id}`);
   };
 
   return (

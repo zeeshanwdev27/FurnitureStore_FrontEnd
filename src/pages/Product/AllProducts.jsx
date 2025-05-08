@@ -15,7 +15,7 @@ function AllProducts() {
   },[])
 
   const handleProductClick = (id) => {
-    navigate(`/api/product/${id}`);
+    navigate(`/product/${id}`);
   };
 
   return (

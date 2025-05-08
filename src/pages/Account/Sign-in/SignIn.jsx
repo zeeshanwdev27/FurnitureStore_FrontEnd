@@ -13,7 +13,7 @@ function SignIn() {
   const [error, setError] = useState('');
 
   const handleSignUp = () => {
-    navigate('/api/signup');
+    navigate('/signup');
   };
 
   const handleChange = (e) => {

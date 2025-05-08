@@ -19,7 +19,7 @@ function MainNavbar() {
   
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { toggleCart } = useCart();
+  const { toggleCart, itemCount } = useCart();
   const [searchTerm, setSearchTerm] = useState("");
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ function MainNavbar() {
   };
 
   const handleCategoryClick = (category) => {
-    navigate(`/api/category/${category}`);
+    navigate(`/category/${category}`);
     setIsMobileMenuOpen(false);
   };
 
@@ -48,7 +48,7 @@ function MainNavbar() {
     if (isAuthenticated()) {
       setProfileAnchorEl(event.currentTarget);
     } else {
-      navigate("/api/signin", {
+      navigate("/signin", {
         state: { from: { pathname: window.location.pathname } },
       });
     }
@@ -83,6 +83,7 @@ function MainNavbar() {
     <>
       <Topbar />
       <nav className="bg-white border border-gray-200 md:px-6 lg:px-35 py-4">
+        
         {/* Mobile View */}
         <div className="flex items-center justify-between px-[25px] lg:hidden">
           <div className="flex items-center gap-2">
@@ -102,12 +103,17 @@ function MainNavbar() {
 
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-4">
-              <img
-                src={cart}
-                onClick={toggleCart}
-                alt="cart"
-                className="w-5 h-5 hover:cursor-pointer"
-              />
+            <button 
+              onClick={toggleCart}
+              className="relative p-1 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <img src={cart} alt="cart" className="w-5 h-5" />
+              {itemCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {itemCount}
+                </span>
+              )}
+            </button>
               <img
                 src={heart}
                 alt="heart"
@@ -152,6 +158,7 @@ function MainNavbar() {
           </div>
         </div>
 
+        {/* Mobile Search */}
         {isSearchOpen && (
           <div className="mt-4 lg:hidden px-10">
             <input
@@ -160,7 +167,7 @@ function MainNavbar() {
               onChange={(e) => setSearchTerm(e.target.value)}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  navigate(`/api/search?q=${searchTerm}`);
+                  navigate(`/search?q=${searchTerm}`);
                   setSearchTerm("");
                 }
               }}
@@ -170,27 +177,19 @@ function MainNavbar() {
           </div>
         )}
 
+        {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="mt-4 flex flex-col gap-4 lg:hidden px-10">
+          <div className="mt-4 lg:hidden bg-gray-50 rounded-lg p-4">
             <div className="flex flex-col gap-2">
-              <button
-                onClick={() => handleCategoryClick("Tables")}
-                className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md"
-              >
-                Tables
-              </button>
-              <button
-                onClick={() => handleCategoryClick("Sofas")}
-                className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md"
-              >
-                Sofas
-              </button>
-              <button
-                onClick={() => handleCategoryClick("Chairs")}
-                className="text-left text-sm text-gray-700 py-1 hover:bg-gray-100 rounded-md"
-              >
-                Chairs
-              </button>
+              {["Tables", "Sofas", "Chairs"].map((category) => (
+                <button
+                  key={category}
+                  onClick={() => handleCategoryClick(category)}
+                  className="text-left font-bold text-gray-700 py-2 px-3 hover:bg-gray-200 rounded-md transition-colors"
+                >
+                  {category}
+                </button>
+              ))}
             </div>
           </div>
         )}
@@ -213,51 +212,51 @@ function MainNavbar() {
               </p>
             </div>
 
-            <PopupState variant="popover" popupId="categories-menu-lg">
-              {(popupState) => (
-                <>
-                  <button
-                    {...bindTrigger(popupState)}
-                    className="bg-gray-100 border text-black font-medium rounded-sm px-4 py-2 flex items-center gap-2 hover:bg-gray-200 hover:cursor-pointer"
-                  >
-                    <img src={sort} alt="sort icon" className="w-5 h-5" />
-                    Categories
-                  </button>
-                  <Menu
-                    {...bindMenu(popupState)}
-                    className="[&>.MuiPaper-root]:w-40 mt-1" // Sets width to 256px (Tailwind's w-64)
-                  >
+          {/* Categories */}
+          <PopupState variant="popover" popupId="categories-menu-lg">
+            {(popupState) => (
+              <div className="relative">
+                <button
+                  {...bindTrigger(popupState)}
+                  className="cursor-pointer flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+                >
+                  <img src={sort} alt="sort" className="w-5 h-5" />
+                  <span>Categories</span>
+                </button>
+                <Menu
+                  {...bindMenu(popupState)}
+                  anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                  transformOrigin={{ vertical: "top", horizontal: "left" }}
+                  sx={{
+                    "& .MuiPaper-root": {
+                      minWidth: "200px",
+                      borderRadius: "0.5rem",
+                      boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+                      marginTop: "0.5rem",
+                    },
+                    "& .MuiMenuItem-root": {
+                      padding: "0.75rem 1rem",
+                      "&:hover": {
+                        backgroundColor: "#f3f4f6",
+                      },
+                    },
+                  }}
+                >
+                  {["Tables", "Sofas", "Chairs"].map((category) => (
                     <MenuItem
+                      key={category}
                       onClick={() => {
                         popupState.close();
-                        navigate("/api/category/Tables");
+                        navigate(`/category/${category}`);
                       }}
-                      className="text-base py-3 px-4" // Bigger text and padding
                     >
-                      Tables
+                      {category}
                     </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        popupState.close();
-                        navigate("/api/category/Sofas");
-                      }}
-                      className="text-base py-3 px-4"
-                    >
-                      Sofas
-                    </MenuItem>
-                    <MenuItem
-                      onClick={() => {
-                        popupState.close();
-                        navigate("/api/category/Chairs");
-                      }}
-                      className="text-base py-3 px-4"
-                    >
-                      Chairs
-                    </MenuItem>
-                  </Menu>
-                </>
-              )}
-            </PopupState>
+                  ))}
+                </Menu>
+              </div>
+            )}
+          </PopupState>
           </div>
 
           <div className="flex-1 max-w-2xl relative flex items-center mx-8">
@@ -287,23 +286,32 @@ function MainNavbar() {
             </div>
           </div>
 
-          <ul className="flex items-center gap-6">
-            <li
+          {/* Icons */}
+          <div className="flex items-center gap-6">
+            <button 
               onClick={toggleCart}
-              className="flex items-center gap-1 text-gray-600 hover:text-gray-900 cursor-pointer"
+              className="relative p-1 hover:bg-gray-100 rounded-full transition-colors"
             >
               <img src={cart} alt="cart" className="w-5 h-5" />
-            </li>
-            <li className="text-gray-600 hover:text-gray-900 cursor-pointer">
-              <img src={heart} alt="heart" className="w-5 h-5" />
-            </li>
-            <li className="text-gray-600 hover:text-gray-900 cursor-pointer">
-              <img
-                src={profile}
-                alt="profile"
-                className="w-5 h-5"
+              {itemCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                  {itemCount}
+                </span>
+              )}
+            </button>
+            
+            <button className="p-1 hover:bg-gray-100 rounded-full transition-colors">
+              <img src={heart} alt="wishlist" className="w-5 h-5" />
+            </button>
+            
+            <div className="relative">
+              <button 
                 onClick={handleProfileClick}
-              />
+                className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+              >
+                <img src={profile} alt="profile" className="w-5 h-5" />
+              </button>
+              
               <Menu
                 anchorEl={profileAnchorEl}
                 open={Boolean(profileAnchorEl)}
@@ -311,43 +319,40 @@ function MainNavbar() {
                 sx={{
                   "& .MuiPaper-root": {
                     minWidth: "200px",
-                    borderRadius: "0.375rem", // rounded-md
-                    boxShadow:
-                      "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)", // shadow-lg
-                    padding: "0.25rem 0", // space-y-1
+                    borderRadius: "0.5rem",
+                    boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+                    marginTop: "0.5rem",
                   },
                   "& .MuiMenuItem-root": {
-                    fontSize: "0.875rem", // text-sm
-                    padding: "0.5rem 1rem", // px-4 py-2
-                  },
-                  "& .MuiMenuItem-root:hover": {
-                    backgroundColor: "#f3f4f6", // bg-gray-100
-                  },
-                  "& .MuiMenuItem-root:active": {
-                    backgroundColor: "#e5e7eb", // bg-gray-200
-                  },
-                  "& .MuiMenuItem-root.Mui-disabled": {
-                    opacity: 1,
-                    color: "#111827", // text-gray-900
+                    padding: "0.75rem 1rem",
+                    "&:hover": {
+                      backgroundColor: "#f3f4f6",
+                    },
                   },
                 }}
               >
-                {isAuthenticated() && (
+                {isAuthenticated() ? (
                   <>
                     <MenuItem disabled>
-                      <span className="font-medium">Hi, {user?.username}</span>
+                      <span className="font-medium text-gray-900">Hi, {user?.username}</span>
                     </MenuItem>
-                    <MenuItem
+                    <MenuItem 
                       onClick={handleLogout}
-                      className="text-red-600 hover:bg-red-50" // Custom hover state
+                      sx={{ color: "#dc2626", "&:hover": { backgroundColor: "#fee2e2" } }}
                     >
                       Sign Out
                     </MenuItem>
                   </>
+                ) : (
+                  <MenuItem onClick={() => navigate("/signin")}>Sign In</MenuItem>
                 )}
               </Menu>
-            </li>
-          </ul>
+            </div>
+          </div>
+
+
+
+          
         </div>
       </nav>
 

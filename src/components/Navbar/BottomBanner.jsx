@@ -9,7 +9,7 @@ function BottomBanner() {
   }
 
   const handleAllProducts =()=>{
-    navigate('/api/all-products')
+    navigate('/products')
   }
 
   return (

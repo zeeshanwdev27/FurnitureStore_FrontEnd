@@ -13,7 +13,7 @@ function FeatureList() {
   }, []);
 
   const handleProductClick = (id) => {
-    navigate(`/api/product/${id}`);
+    navigate(`/product/${id}`);
   };
 
   return (

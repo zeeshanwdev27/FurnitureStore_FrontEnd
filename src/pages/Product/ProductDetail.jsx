@@ -35,7 +35,7 @@ function ProductDetail() {
   if (!product) return <div className="p-10">Loading...</div>;
 
   const handleProductClick = (id) => {
-    navigate(`/api/product/${id}`);
+    navigate(`/product/${id}`);
   };
 
   return (

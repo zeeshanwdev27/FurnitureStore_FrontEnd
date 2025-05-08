@@ -13,7 +13,7 @@ function PopularProducts() {
   }, []);
 
   const handleProductClick = (id) => {
-    navigate(`/api/product/${id}`);
+    navigate(`/product/${id}`);
   };
 
   return (

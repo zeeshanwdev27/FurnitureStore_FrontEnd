@@ -22,7 +22,7 @@ function SignUp() {
   };
 
   const handleSignIn = () => {
-    navigate('/api/signin');
+    navigate('/signin');
   };
 
   const handleSubmit = async (e) => {

@@ -10,7 +10,7 @@ export default function Logout() {
     // localStorage.removeItem('token');
     
     // Redirect after cleanup
-    navigate('/api/signin');
+    navigate('/signin');
   }, [navigate]);
 
   return (

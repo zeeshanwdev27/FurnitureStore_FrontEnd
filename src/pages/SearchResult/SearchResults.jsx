@@ -18,7 +18,7 @@ function SearchResults() {
   }, [query]);
 
   const handleProductClick = (id) => {
-    navigate(`/api/product/${id}`);
+    navigate(`/product/${id}`);
   };
 
   return (

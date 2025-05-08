@@ -34,7 +34,7 @@ function ProtectedRoute({ children }) {
       autoClose: 3000,
     });
     
-    return <Navigate to="/api/signin" state={{ from: location }} replace />;
+    return <Navigate to="/signin" state={{ from: location }} replace />;
   }
 
   return children;
