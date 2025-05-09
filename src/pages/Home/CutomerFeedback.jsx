@@ -65,74 +65,84 @@ const testimonials = [
   },
 ];
 
-function CutomerFeedback() {
+function CustomerFeedback() {
   return (
-    <div className="bg-[#885B3A] py-10 px-4 md:px-10 lg:px-40 text-center text-white">
+    <div className="bg-[#885B3A] py-10 px-4 md:px-10 lg:px-40 text-center text-white relative">
       <h2 className="text-xl md:text-2xl font-bold mb-8 md:mb-10">HAPPY CUSTOMERS</h2>
 
-      <Swiper
-        modules={[Navigation, Pagination]}
-        spaceBetween={30}
-        slidesPerView={3}
-        navigation
-        pagination={{ clickable: true }}
-        loop
-        breakpoints={{
-          320: { slidesPerView: 1 },
-          768: { slidesPerView: 2 },
-          1024: { slidesPerView: 3 },
-        }}
-      >
-        {testimonials.map((testi, i) => (
-          <SwiperSlide key={i}>
-            <div className="bg-white text-black rounded-lg p-4 md:p-6 shadow-md h-full flex flex-col justify-between">
-              <div className="flex justify-between items-center mb-2">
-                <p className="font-semibold text-sm md:text-base">Product Quality</p>
-                <div className="text-[#885B3A] text-sm md:text-lg">★ ★ ★ ★ ★</div>
-              </div>
-              <p className="text-xs md:text-sm text-left mb-4 md:mb-6">“{testi.message}”</p>
-              <div className="flex items-center gap-3 mt-auto">
-                <img
-                  src={testi.image}
-                  alt={testi.name}
-                  className="w-8 h-8 md:w-10 md:h-10 rounded-full"
-                />
-                <div className="text-left">
-                  <p className="text-xs md:text-sm font-semibold">{testi.name}</p>
-                  <p className="text-[10px] md:text-xs">{testi.role}</p>
+      <div className="relative px-8 lg:px-0">
+        {/* Custom Navigation Arrows (Outside) */}
+        <button className="custom-prev absolute -left-4 lg:-left-8 top-1/2 -translate-y-1/2 z-10 cursor-pointer bg-white rounded-full p-2 hidden lg:flex items-center justify-center shadow-md hover:bg-gray-100 transition-all duration-200 hover:scale-110">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#885B3A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button className="custom-next absolute -right-4 lg:-right-8 top-1/2 -translate-y-1/2 z-10 cursor-pointer bg-white rounded-full p-2 hidden lg:flex items-center justify-center shadow-md hover:bg-gray-100 transition-all duration-200 hover:scale-110">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#885B3A]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        <Swiper
+          modules={[Navigation, Pagination]}
+          spaceBetween={24}
+          slidesPerView={1}
+          navigation={{
+            prevEl: '.custom-prev',
+            nextEl: '.custom-next',
+          }}
+          pagination={{
+            clickable: true,
+            el: '.custom-pagination',
+            bulletClass: 'swiper-bullet',
+            bulletActiveClass: 'swiper-bullet-active'
+          }}
+          loop
+          breakpoints={{
+            640: {
+              slidesPerView: 1.5,
+              spaceBetween: 24
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 24
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 24
+            }
+          }}
+        >
+          {testimonials.map((testi, i) => (
+            <SwiperSlide key={i} className="h-auto">
+              <div className="bg-white text-black rounded-lg p-4 shadow-md h-full flex flex-col min-h-[240px]">
+                <div className="flex justify-between items-center mb-2 mr-32">
+                  <p className="font-semibold text-sm">Product Quality</p>
+                  <div className="text-[#885B3A] text-sm">★★★★★</div>
+                </div>
+                <p className="text-xs text-left mb-3 line-clamp-4 flex-grow">“{testi.message}”</p>
+                <div className="flex items-center gap-2 mt-auto pt-2 border-t border-gray-100">
+                  <img
+                    src={testi.image}
+                    alt={testi.name}
+                    className="w-8 h-8 rounded-full object-cover"
+                  />
+                  <div className="text-left">
+                    <p className="text-xs font-semibold">{testi.name}</p>
+                    <p className="text-[10px] text-gray-500">{testi.role}</p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+            </SwiperSlide>
+          ))}
+        </Swiper>
 
-      <style>
-        {`
-          .swiper-button-prev,
-          .swiper-button-next {
-            color: black !important;
-          }
-
-          .swiper-pagination-bullet {
-            background-color: white !important;
-            opacity: 0.7;
-          }
-
-          .swiper-pagination-bullet-active {
-            background-color: black !important;
-            opacity: 1;
-          }
-
-          .swiper-pagination {
-            margin-top: 40px;
-            position: relative;
-            bottom: -10px;
-          }
-        `}
-      </style>
+        {/* Custom Pagination */}
+        <div className="custom-pagination flex justify-center mt-6 space-x-2"></div>
+      </div>
     </div>
   );
 }
 
-export default CutomerFeedback;
+export default CustomerFeedback;
