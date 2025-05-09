@@ -97,7 +97,7 @@ export default function CartSidebar() {
                   <p className="text-lg">Your cart is empty</p>
                   <button
                     onClick={toggleCart}
-                    className="mt-4 px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
+                    className="cursor-pointer mt-4 px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition-colors"
                   >
                     Continue Shopping
                   </button>

@@ -166,7 +166,7 @@ function OrderConfirm() {
                 </div>
                 <div className="flex justify-between">
                   <span>Payment Method:</span>
-                  <span className="font-medium">Credit Card</span>
+                  <span className="font-medium">Cash On Delivery</span>
                 </div>
               </div>
             </div>
@@ -260,7 +260,7 @@ function OrderConfirm() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={handleContinueShopping}
-              className="flex-1 max-w-xs mx-auto bg-[#885B3A] hover:bg-[#774A2A] text-white px-6 py-3 rounded-md transition shadow-sm hover:shadow-md"
+              className="cursor-pointer flex-1 max-w-xs mx-auto bg-[#885B3A] hover:bg-[#774A2A] text-white px-6 py-3 rounded-md transition shadow-sm hover:shadow-md"
             >
               Continue Shopping
             </button>
